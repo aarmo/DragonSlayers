@@ -2,30 +2,35 @@
 using DragonSlayers.Lib.Cards;
 using System.Linq;
 using System.Collections.Generic;
+using DragonSlayers.Lib.Players;
+using DragonSlayers.Lib.Controllers;
 
-namespace DragonSlayers.Lib
+namespace DragonSlayers.Lib.Logic
 {
+    /// <summary>
+    /// Rules from: http://www.angelfire.com/games2/warpspawn/DSlay.html
+    /// </summary>
     public class Game
     {
         public const int NormalDrawNumber = 3;
         public const int ReducedDrawNumber = 1;
 
-        public DragonDeck DragonDeck { get; set; }
-        public SlayerDeck SlayerDeck { get; set; }
-        public DragonPlayer Dragon { get; set; }
-        public SlayerPlayer Slayer { get; set; }
+        public DragonDeck DragonDeck { get; private set; }
+        public SlayerDeck SlayerDeck { get; private set; }
+        public DragonPlayer Dragon { get; private set; }
+        public SlayerPlayer Slayer { get; private set; }
 
         private bool _dragonCanAttackAnyHero = false;
         private bool _slayerDrawsLess = false;
         private bool _dragonDrawsLess = false;
 
-        public Game()
+        public Game(IDragonGameController dragonPlayer, ISlayerGameController slayerPlayer)
         {
             DragonDeck = new DragonDeck();
             SlayerDeck = new SlayerDeck();
 
-            Dragon = new DragonPlayer(DragonDeck);
-            Slayer = new SlayerPlayer(SlayerDeck);
+            Dragon = new DragonPlayer(DragonDeck, dragonPlayer);
+            Slayer = new SlayerPlayer(SlayerDeck, slayerPlayer);
             Slayer.RandomPresetParty();
         }
 
@@ -46,6 +51,8 @@ namespace DragonSlayers.Lib
             */
 
             SlayerDeck.DrawFromDeck(_slayerDrawsLess ? ReducedDrawNumber : NormalDrawNumber, Slayer.Hand, DiscardExtraSlayer);
+            SlayerCheckArtifacts();
+
             DragonDeck.DrawFromDeck(_dragonDrawsLess ? ReducedDrawNumber : NormalDrawNumber, Dragon.Hand, DiscardExtraDragon);
         }
 
@@ -74,7 +81,7 @@ namespace DragonSlayers.Lib
 
             do
             {
-                GameMessage("Please choose a card to play...");
+                 GameMessage("Please choose a card to play...");
                 playCard = GetSlayerPlayCard();
                 var usedMembers = new List<SlayerRecruit>();
 
@@ -238,9 +245,16 @@ namespace DragonSlayers.Lib
                         var blockingCard = GetSlayerBlockingCard();
                         if (blockingCard == null)
                         {
-                            // Damage Applied!
-                            Slayer.DamageParty(playCard, playTarget);
-                            GameMessage("You successfully attacked the Slayer's party! Do you want to play another card?");
+                            if (!playTarget.Artifact.DamageReduced())
+                            {
+                                // Damage Applied!
+                                Slayer.DamageParty(playCard, playTarget);
+                                GameMessage("You successfully attacked the Slayer's party! Do you want to play another card?");
+                            }
+                            else
+                            {
+                                GameMessage("Sorry, the Slayer blocked your attack. Do you want to play another card?");
+                            }
                         }
                         else
                         {
@@ -295,7 +309,67 @@ namespace DragonSlayers.Lib
             } while (playCard != null);
 
         }
-        
+
+        private void SlayerCheckArtifacts()
+        {
+            // If the slayer needs to assign any artifacts:
+            foreach (var a in Slayer.Artifacts.Where(_ => _.HeldBy != null))
+            {
+                var m = GetSlayerMemberForArtifact(a);
+                if (m == null) break;
+                if (m.Artifact != null)
+                {
+                    GameMessage("Sorry, that member is already carrying an artifact! Please try again...");
+                    continue;
+                }
+                if (!m.Artifact.UsableBy.Contains(m.Type))
+                {
+                    GameMessage("Sorry, that member can't use that type of artifact! Please try again...");
+                    continue;
+                }
+
+                // Store the reference;
+                a.HeldBy = m;
+                m.Artifact = a;
+            }
+
+            // If needed, the slayer's team can pick up an artifact from a dead member
+            if (Slayer.Dead.Count > 0)
+            {
+                foreach (var d in Slayer.Dead.Where(_ => _.Artifact != null))
+                {
+                    var m = GetSlayerMemberForArtifact(d);
+                    if (m == null) break;
+                    if (m.Artifact != null)
+                    {
+                        GameMessage("Sorry, that member is already carrying an artifact! Please try again...");
+                        continue;
+                    }
+                    if (!m.Artifact.UsableBy.Contains(m.Type))
+                    {
+                        GameMessage("Sorry, that member can't use that type of artifact! Please try again...");
+                        continue;
+                    }
+
+                    // Move the reference;
+                    m.Artifact = d.Artifact;
+                    d.Artifact = null;
+                }
+            }
+        }
+
+        private SlayerRecruit GetSlayerMemberForArtifact(SlayerRecruit d)
+        {
+            // TODO: Call the method in the UI/AI to get the new member to move this artifact to
+            throw new NotImplementedException();
+        }
+
+        private SlayerRecruit GetSlayerMemberForArtifact(SlayerArtifact d)
+        {
+            // TODO: Call the method in the UI/AI to get the member to assign this artifact to
+            throw new NotImplementedException();
+        }
+
         private BaseCard GetDragonBlockingCard()
         {
             // TODO: Call the method in the other player's UI/AI to get a card to block with
@@ -361,10 +435,5 @@ namespace DragonSlayers.Lib
             // TODO: Ask the player to discard extra cards
             throw new NotImplementedException();
         }
-    }
-    
-    public enum EGender
-    {
-        Male, Female
     }
 }

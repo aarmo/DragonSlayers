@@ -1,13 +1,13 @@
-﻿using System;
-using DragonSlayers.Lib.Cards;
+﻿using DragonSlayers.Lib.Cards;
 using DragonSlayers.Lib.Names;
 
-namespace DragonSlayers.Lib
+namespace DragonSlayers.Lib.Logic
 {
     public class SlayerRecruit
     {
         public ERecruitType Type { get; set; }
         public string Name { get; set; }
+        public SlayerArtifact Artifact { get; set; }
 
         public static SlayerRecruit Wizard()
         {
@@ -67,14 +67,5 @@ namespace DragonSlayers.Lib
 
             return false;
         }
-    }
-
-    public enum ERecruitType
-    {
-        Wizard, Warrior, Archer, MenAtArms
-    }
-    public enum EArtifactType
-    {
-        MagicSword, MagicArrows, MagicStaff, MagicPotion, MagicArmour, MagicScrolls
     }
 }

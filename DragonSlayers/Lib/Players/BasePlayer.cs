@@ -1,7 +1,7 @@
 ﻿using DragonSlayers.Lib.Cards;
 using System.Collections.Generic;
 
-namespace DragonSlayers.Lib
+namespace DragonSlayers.Lib.Players
 {
     public class BasePlayer
     {

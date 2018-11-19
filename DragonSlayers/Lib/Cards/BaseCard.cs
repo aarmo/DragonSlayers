@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DragonSlayers.Lib.Cards
+﻿namespace DragonSlayers.Lib.Cards
 {
     public class BaseCard
     {
@@ -144,20 +142,5 @@ namespace DragonSlayers.Lib.Cards
                 }
             }
         }
-    }
-
-    public enum ECardAction
-    {
-        None, Attack, Block, Regenerate, DiscardToDraw, EnemyDrawsLess, AttackAnyHero
-    }
-
-    public enum EAttackType
-    {
-        None, Sword, Arrow, Spell, Mouth, Wings, Tail, Limbs
-    }
-
-    public enum EBlockType
-    {
-        None, Dragon, Sword, Arrow, Spell, SpellSword, SpellArrow, SwordArrow, Warrior, Archer, Wizard, ManAtArms, WarriorManAtArms, ArcherWizard
     }
 }

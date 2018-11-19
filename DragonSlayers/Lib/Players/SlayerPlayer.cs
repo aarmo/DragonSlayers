@@ -1,8 +1,10 @@
 ﻿using DragonSlayers.Lib.Cards;
+using DragonSlayers.Lib.Controllers;
+using DragonSlayers.Lib.Logic;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DragonSlayers.Lib
+namespace DragonSlayers.Lib.Players
 {
     public class SlayerPlayer : BasePlayer
     {
@@ -11,13 +13,15 @@ namespace DragonSlayers.Lib
         public List<SlayerRecruit> Party { get; set; }
         public List<SlayerRecruit> Dead { get; set; }
         public List<SlayerArtifact> Artifacts { get; set; }
+        public ISlayerGameController Controller { get; private set; }
 
-        public SlayerPlayer(SlayerDeck deck)
+        public SlayerPlayer(SlayerDeck deck, ISlayerGameController controller)
         {
             Hand = new List<BaseCard>();
             Party = new List<SlayerRecruit>();
             Artifacts = new List<SlayerArtifact>();
             Deck = deck;
+            Controller = controller;
         }
         
         public void DamageParty(BaseCard playCard, SlayerRecruit member)

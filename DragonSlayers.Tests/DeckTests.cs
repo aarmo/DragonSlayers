@@ -1,4 +1,5 @@
-﻿using DragonSlayers.Lib.Cards;
+﻿using DragonSlayers.Lib;
+using DragonSlayers.Lib.Cards;
 using FluentAssertions;
 using NUnit.Framework;
 using System.Linq;

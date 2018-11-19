@@ -54,8 +54,10 @@
     </Compile>
     <Compile Include="Lib\Cards\BaseCard.cs" />
     <Compile Include="Lib\Cards\BaseDeck.cs" />
-    <Compile Include="Lib\Dice.cs" />
-    <Compile Include="Lib\BasePlayer.cs" />
+    <Compile Include="Lib\Controllers\ISlayerGameController.cs" />
+    <Compile Include="Lib\Utils\Dice.cs" />
+    <Compile Include="Lib\Controllers\IDragonGameController.cs" />
+    <Compile Include="Lib\Players\BasePlayer.cs" />
     <Compile Include="Lib\Names\Dragon.cs" />
     <Compile Include="Lib\Names\DragonBorn.cs" />
     <Compile Include="Lib\Names\Dwarf.cs" />
@@ -64,11 +66,12 @@
     <Compile Include="Lib\Names\Halfling.cs" />
     <Compile Include="Lib\Names\Human.cs" />
     <Compile Include="Lib\Names\Tiefling.cs" />
-    <Compile Include="Lib\SlayerArtifact.cs" />
-    <Compile Include="Lib\SlayerRecruit.cs" />
-    <Compile Include="Lib\SlayerPlayer.cs" />
-    <Compile Include="Lib\DragonPlayer.cs" />
-    <Compile Include="Lib\Game.cs" />
+    <Compile Include="Lib\Logic\SlayerArtifact.cs" />
+    <Compile Include="Lib\Logic\SlayerRecruit.cs" />
+    <Compile Include="Lib\Players\SlayerPlayer.cs" />
+    <Compile Include="Lib\Players\DragonPlayer.cs" />
+    <Compile Include="Lib\Logic\Game.cs" />
+    <Compile Include="Lib\Utils\Enums.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
