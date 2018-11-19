@@ -1,0 +1,18 @@
+﻿Bite|2|Mouth Attack
+Fangs|2|Mouth Attack
+Firebreath|2|Mouth Attack
+Claws|2|Limbs Attack
+Talons|2|Limbs Attack
+Crush|2|Limbs Attack
+Wing Buffet|2|Wings Attack
+Tail Sweep|2|Tail Attack
+Magic Resistnce|2|Negates one Spell Attack
+Scale Plates|2|Negates one Arrow Attack
+Hover|2|Negates one Sword Attack
+Dragon Armor|2|Negates one Spell or Sword Attack
+Melee|2|Negates one Spell or Arrow Attack
+Tough Hide|2|Negates one Sword or Arrow Attack
+Dragon Blood |2|Regenerate 1 Hit point
+Dragon Rage|2|Discard to draw 3 cards
+Swoop Attack|2|Slayer draws 2 less cards next turn
+Single Out|1|Dragon may attack any Hero this turn

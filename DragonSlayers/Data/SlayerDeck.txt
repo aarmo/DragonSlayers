@@ -1,0 +1,16 @@
+﻿Sword|6|Sword Attack for 1 point of Damage
+Mighty Blow|1|Sword Attack for 2 points of Damage
+Arrow|4|Arrow Attack for 1 point of Damage
+Missing Scale|1|Arrow Attack for 2 points of Damage
+Lightning Bolt|2|Spell Attack for 1 point of Damage
+Fireball|2|Spell Attack for 2 points of Damage
+Dodge|2|Negates one Attack made by Dragon
+Armor|2|Negates one Attack vs Warrior or Man-at-arms
+Out of Range|2|Negates one Attack vs Wizard or Archer
+Skill|2|Negates one Attack vs Warrior
+Luck|2|Negates one Attack vs Man-at-arms
+Retreat|2|Negates one Attack vs Archer
+Magic Shield|2|Negates one Attack vs Wizard
+Teamwork|2|Discard to draw 3 cards
+Grievous Wound|2|Dragon draws 2 less cards next turn
+Recovery|1|Return one 'killed' hero to play
