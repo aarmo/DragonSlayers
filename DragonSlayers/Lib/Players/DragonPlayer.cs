@@ -32,7 +32,16 @@ namespace DragonSlayers.Lib.Players
             var damage = 1;
 
             if (playMember.Type == ERecruitType.Warrior) damage++;
-            if (playMember.Artifact != null) damage += playMember.Artifact.GetDamageBonus();
+            if (playMember.Artifact != null)
+            {
+                var art = playMember.Artifact;
+                if (art.UseCount > 0)
+                {
+                    damage += art.GetDamageBonus();
+
+                    art.UseCount--;
+                }
+            }
 
             HitPoints -= damage;
         }

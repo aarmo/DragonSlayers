@@ -81,7 +81,7 @@ namespace DragonSlayers.Lib.Logic
 
             do
             {
-                 GameMessage("Please choose a card to play...");
+                GameMessage("Please choose a card to play...");
                 playCard = GetSlayerPlayCard();
                 var usedMembers = new List<SlayerRecruit>();
 
@@ -108,7 +108,7 @@ namespace DragonSlayers.Lib.Logic
 
                         if (!playMember.CanAttackWith(playCard))
                         {
-                            GameMessage("Sorry, this member can't attack with that! Please choose again...");
+                            GameMessage("Sorry, this member can't attack like that! Please choose again...");
                             continue;
                         }
 
@@ -127,6 +127,11 @@ namespace DragonSlayers.Lib.Logic
                             DragonDeck.DiscardCard(blockingCard, Dragon.Hand);
                             GameMessage("Sorry, the Dragon blocked your attack. Do you want to play another card?");
                         }
+
+                        // Magic Scrolls don't discard the attack card
+                        if (playMember.Artifact != null && playMember.Artifact.Type == EArtifactType.MagicScrolls)
+                            continue;
+
                         SlayerDeck.DiscardCard(playCard, Slayer.Hand);
                         break;
 
@@ -147,7 +152,7 @@ namespace DragonSlayers.Lib.Logic
 
                         if (reviveMember == null)
                         {
-                            GameMessage("Ok, no party members revived. Do you want to play another card?");
+                            GameMessage("No party members revived. Do you want to play another card?");
                             continue;
                         }
 
